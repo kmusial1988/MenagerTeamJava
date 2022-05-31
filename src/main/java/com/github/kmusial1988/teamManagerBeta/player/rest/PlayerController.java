@@ -1,5 +1,6 @@
 package com.github.kmusial1988.teamManagerBeta.player.rest;
 
+import com.github.kmusial1988.teamManagerBeta.player.model.PlayerArchives;
 import com.github.kmusial1988.teamManagerBeta.player.model.PlayerRequest;
 import com.github.kmusial1988.teamManagerBeta.player.model.PlayerResponse;
 import com.github.kmusial1988.teamManagerBeta.player.service.PlayerService;
@@ -49,6 +50,11 @@ public class PlayerController {
     @PutMapping()
     public ResponseEntity<PlayerResponse> updatePlayer(@RequestBody @Valid PlayerRequest playerRequest){
         return ResponseEntity.status(HttpStatus.OK).body(playerService.updatePlayer(playerRequest));
+    }
+
+    @GetMapping("/archive")
+    public ResponseEntity<List<PlayerArchives>> getPlayerArchives(){
+        return ResponseEntity.status(HttpStatus.OK).body(playerService.listPlayerArchives());
     }
 
 

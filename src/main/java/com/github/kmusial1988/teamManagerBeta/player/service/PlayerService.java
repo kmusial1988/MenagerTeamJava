@@ -1,5 +1,6 @@
 package com.github.kmusial1988.teamManagerBeta.player.service;
 
+import com.github.kmusial1988.teamManagerBeta.player.model.PlayerArchives;
 import com.github.kmusial1988.teamManagerBeta.player.model.PlayerRequest;
 import com.github.kmusial1988.teamManagerBeta.player.model.PlayerResponse;
 
@@ -16,4 +17,6 @@ public interface PlayerService {
     PlayerResponse updatePlayer(PlayerRequest playerRequest);
 
     void deletePlayer(Long id);
+
+    List<PlayerArchives> listPlayerArchives();
 }

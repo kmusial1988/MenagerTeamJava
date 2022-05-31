@@ -4,8 +4,10 @@ import com.github.kmusial1988.teamManagerBeta.player.exception.PlayerIsAlreadyEx
 import com.github.kmusial1988.teamManagerBeta.player.exception.PlayerIsNotFoundException;
 import com.github.kmusial1988.teamManagerBeta.player.mapper.PlayerMapper;
 import com.github.kmusial1988.teamManagerBeta.player.model.Player;
+import com.github.kmusial1988.teamManagerBeta.player.model.PlayerArchives;
 import com.github.kmusial1988.teamManagerBeta.player.model.PlayerRequest;
 import com.github.kmusial1988.teamManagerBeta.player.model.PlayerResponse;
+import com.github.kmusial1988.teamManagerBeta.player.repository.PlayerArchivesRepository;
 import com.github.kmusial1988.teamManagerBeta.player.repository.PlayerRepository;
 import com.github.kmusial1988.teamManagerBeta.player.service.PlayerService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +24,12 @@ public class PlayerServiceImpl implements PlayerService {
 
     private final PlayerRepository playerRepository;
     private final PlayerMapper playerMapper;
+    private final PlayerArchivesRepository playerArchivesRepository;
 
-    public PlayerServiceImpl(PlayerRepository playerRepository, PlayerMapper playerMapper) {
+    public PlayerServiceImpl(PlayerRepository playerRepository, PlayerMapper playerMapper, PlayerArchivesRepository playerArchivesRepository) {
         this.playerRepository = playerRepository;
         this.playerMapper = playerMapper;
+        this.playerArchivesRepository = playerArchivesRepository;
     }
 
     @Override
@@ -72,7 +76,16 @@ public class PlayerServiceImpl implements PlayerService {
         Player player = playerRepository.findById(id).orElseThrow(()->{
             throw new PlayerIsNotFoundException();
         });
+
+        playerArchivesRepository.save(playerMapper.mapFromEntityToArchive(player));
+
         log.info("Deleting player by ID: {}", id);
-        playerRepository.deleteById(id);
+        playerRepository.delete(player);
+    }
+
+    @Override
+    public List<PlayerArchives> listPlayerArchives() {
+        log.info("List of PlayerArchives downloaded");
+        return playerArchivesRepository.findAll();
     }
 }
