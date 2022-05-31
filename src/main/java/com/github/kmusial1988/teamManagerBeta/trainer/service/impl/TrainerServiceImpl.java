@@ -4,8 +4,10 @@ import com.github.kmusial1988.teamManagerBeta.trainer.exception.TrainerIsAlready
 import com.github.kmusial1988.teamManagerBeta.trainer.exception.TrainerNotFoundException;
 import com.github.kmusial1988.teamManagerBeta.trainer.mapper.TrainerMapper;
 import com.github.kmusial1988.teamManagerBeta.trainer.model.Trainer;
+import com.github.kmusial1988.teamManagerBeta.trainer.model.TrainerArchives;
 import com.github.kmusial1988.teamManagerBeta.trainer.model.TrainerRequest;
 import com.github.kmusial1988.teamManagerBeta.trainer.model.TrainerResponse;
+import com.github.kmusial1988.teamManagerBeta.trainer.repository.TrainerArchivesRepository;
 import com.github.kmusial1988.teamManagerBeta.trainer.repository.TrainerRepository;
 import com.github.kmusial1988.teamManagerBeta.trainer.service.TrainerService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +24,13 @@ public class TrainerServiceImpl implements TrainerService {
 
     private final TrainerRepository trainerRepository;
     private final TrainerMapper trainerMapper;
+    private final TrainerArchivesRepository trainerArchivesRepository;
 
 
-    public TrainerServiceImpl(TrainerRepository trainerRepository, TrainerMapper trainerMapper) {
+    public TrainerServiceImpl(TrainerRepository trainerRepository, TrainerMapper trainerMapper, TrainerArchivesRepository trainerArchivesRepository) {
         this.trainerRepository = trainerRepository;
         this.trainerMapper = trainerMapper;
+        this.trainerArchivesRepository = trainerArchivesRepository;
     }
 
 
@@ -79,8 +83,17 @@ public class TrainerServiceImpl implements TrainerService {
         Trainer trainer = trainerRepository.findById(id).orElseThrow(() ->{
             throw new TrainerNotFoundException();
         });
+
+        trainerArchivesRepository.save(trainerMapper.mapFromEntityToArchive(trainer));
+
         log.info("Deleting trainer by ID: {}", id);
-        trainerRepository.deleteById(id);
+        trainerRepository.delete(trainer);
+
+    }
+    @Override
+    public List<TrainerArchives> listTrainersArchives() {
+        log.info("List of TrainerArchives downloaded");
+        return trainerArchivesRepository.findAll();
     }
 
 

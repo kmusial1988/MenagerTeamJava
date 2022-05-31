@@ -1,5 +1,6 @@
 package com.github.kmusial1988.teamManagerBeta.trainer.service;
 
+import com.github.kmusial1988.teamManagerBeta.trainer.model.TrainerArchives;
 import com.github.kmusial1988.teamManagerBeta.trainer.model.TrainerRequest;
 import com.github.kmusial1988.teamManagerBeta.trainer.model.TrainerResponse;
 
@@ -15,4 +16,6 @@ public interface TrainerService {
     TrainerResponse updateTrainer(TrainerRequest trainerRequest);
 
     void deleteTrainer(Long id);
+
+    List<TrainerArchives> listTrainersArchives();
 }

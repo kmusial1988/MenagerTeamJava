@@ -1,5 +1,6 @@
 package com.github.kmusial1988.teamManagerBeta.trainer.rest;
 
+import com.github.kmusial1988.teamManagerBeta.trainer.model.TrainerArchives;
 import com.github.kmusial1988.teamManagerBeta.trainer.model.TrainerRequest;
 import com.github.kmusial1988.teamManagerBeta.trainer.model.TrainerResponse;
 import com.github.kmusial1988.teamManagerBeta.trainer.service.TrainerService;
@@ -16,6 +17,7 @@ import java.util.List;
 public class TrainerController {
 
     private final TrainerService trainerService;
+
 
     @Autowired
     public TrainerController(TrainerService trainerService) {
@@ -46,6 +48,10 @@ public class TrainerController {
     @PutMapping()
     public ResponseEntity<TrainerResponse> updateTrainer(@RequestBody @Valid TrainerRequest trainer){
         return ResponseEntity.status(HttpStatus.OK).body(trainerService.updateTrainer(trainer));
+    }
+    @GetMapping("/archive")
+    public ResponseEntity<List<TrainerArchives>> getTrainersArchives(){
+        return ResponseEntity.status(HttpStatus.OK).body(trainerService.listTrainersArchives());
     }
 
 

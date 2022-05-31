@@ -2,9 +2,12 @@ package com.github.kmusial1988.teamManagerBeta.trainer.mapper;
 import com.github.kmusial1988.teamManagerBeta.global.globalEnum.RoleEnum;
 import com.github.kmusial1988.teamManagerBeta.global.globalEnum.Status;
 import com.github.kmusial1988.teamManagerBeta.trainer.model.Trainer;
+import com.github.kmusial1988.teamManagerBeta.trainer.model.TrainerArchives;
 import com.github.kmusial1988.teamManagerBeta.trainer.model.TrainerRequest;
 import com.github.kmusial1988.teamManagerBeta.trainer.model.TrainerResponse;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 
 @Component
 public class TrainerMapper {
@@ -27,6 +30,7 @@ public class TrainerMapper {
         final TrainerResponse response = new TrainerResponse();
         response.setId(trainer.getId());
         response.setName(trainer.getName());
+        response.setSurname(trainer.getSurname());
         response.setLogin(trainer.getLogin());
         response.setPassword(trainer.getPassword());
         response.setImageUrl(trainer.getImageUrl());
@@ -35,6 +39,24 @@ public class TrainerMapper {
         response.setRole(trainer.getRole());
 
         return response;
+    }
+
+    public TrainerArchives mapFromEntityToArchive(final Trainer trainer){
+        final TrainerArchives archives = new TrainerArchives();
+        archives.setDateArchiving(LocalDateTime.now());
+        archives.setName(trainer.getName());
+        archives.setSurname(trainer.getSurname());
+        archives.setLogin(trainer.getLogin());
+        archives.setPassword(trainer.getPassword());
+        archives.setImageUrl(trainer.getImageUrl());
+        archives.setJoined(trainer.getJoined());
+        archives.setStatus(trainer.getStatus());
+        archives.setRole(trainer.getRole());
+
+
+        return archives;
+
+
     }
 
 }
