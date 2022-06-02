@@ -1,29 +1,27 @@
 package com.github.kmusial1988.teamManagerBeta.parent.mapper;
-import com.github.kmusial1988.teamManagerBeta.global.globalEnum.RoleEnum;
-import com.github.kmusial1988.teamManagerBeta.global.globalEnum.Status;
+
 import com.github.kmusial1988.teamManagerBeta.parent.model.Parent;
 import com.github.kmusial1988.teamManagerBeta.parent.model.ParentArchives;
 import com.github.kmusial1988.teamManagerBeta.parent.model.ParentRequest;
 import com.github.kmusial1988.teamManagerBeta.parent.model.ParentResponse;
-import com.github.kmusial1988.teamManagerBeta.player.model.Player;
-import com.github.kmusial1988.teamManagerBeta.player.model.PlayerArchives;
-import com.github.kmusial1988.teamManagerBeta.player.model.PlayerRequest;
-import com.github.kmusial1988.teamManagerBeta.player.model.PlayerResponse;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 
 @Component
 public class ParentMapper {
 
     public Parent mapFromRequestToEntity(final ParentRequest request){
         final Parent parent = new Parent();
+        parent.setId(request.getId());
         parent.setName(request.getName());
         parent.setSurname(request.getSurname());
         parent.setLogin(request.getLogin());
         parent.setPassword(request.getPassword());
         parent.setImageUrl(request.getImageUrl());
         parent.setJoined(request.getJoined());
-        parent.setStatus(Status.NO);
-        parent.setRole(RoleEnum.PLAYER);
+        parent.setStatus(request.getStatus());
+        parent.setRole(request.getRole());
 
         return parent;
     }
@@ -45,7 +43,7 @@ public class ParentMapper {
 
     public ParentArchives mapFromEntityToArchive(final Parent parent){
         final ParentArchives archives = new ParentArchives();
-        archives.setId(parent.getId());
+        archives.setDateArchiving(LocalDateTime.now());
         archives.setName(parent.getName());
         archives.setSurname(parent.getSurname());
         archives.setLogin(parent.getLogin());

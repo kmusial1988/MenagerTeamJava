@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface ParentRepository extends JpaRepository<Parent, Long> {
 
-
+    Optional<Parent> findByIdNotAndLogin(Long id, String login);
 
     Optional<Parent> findByName(String name);
 

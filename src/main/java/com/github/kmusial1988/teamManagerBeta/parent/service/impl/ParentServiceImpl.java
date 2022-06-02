@@ -62,13 +62,18 @@ public class ParentServiceImpl implements ParentService {
 
     @Override
     public ParentResponse updateParent(ParentRequest parentRequest) {
-        Parent parent = parentRepository.findById(parentRequest.getId()).orElseThrow(() ->{
+        Parent parent = parentMapper.mapFromRequestToEntity(parentRequest);
+        System.out.println(" pierwszy    "+parentRequest);
+        parentRepository.findById(parentRequest.getId()).orElseThrow(() ->{
             throw new ParentIsNotFoundException();
         });
-        parentRepository.findByLogin(parentRequest.getLogin()).ifPresent(pa -> {
+
+        parentRepository.findByIdNotAndLogin(parentRequest.getId(), parentRequest.getLogin()).ifPresent(pa -> {
             throw new ParentIsAlreadyExistsException(parent.getLogin());
         });
         log.info("Updating parent: {}", parent.getLogin());
+
+        System.out.println(" ostatni "+parentMapper.mapFromEntityToResponse(parent));
         return parentMapper.mapFromEntityToResponse(parentRepository.save(parent));
     }
 

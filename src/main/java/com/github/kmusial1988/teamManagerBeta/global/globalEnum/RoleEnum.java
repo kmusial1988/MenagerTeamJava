@@ -5,7 +5,7 @@ public enum RoleEnum {
     ADMIN("ADMIN"),
     ORGANIZATION("ORGANIZATION"),
     TRAINER("TRAINER"),
-    GUARDIAN("GUARDIAN"),
+    PARENT("PARENT"),
     PLAYER("PLAYER");
 
 

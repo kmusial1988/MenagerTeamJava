@@ -33,8 +33,8 @@ public class ParentArchives {
     private Status status;
     private RoleEnum role;
 
-    @OneToMany
-    private List<Player> playerList = new ArrayList<>();
+//    @OneToMany
+//    private List<Player> playerList = new ArrayList<>();
 
 
 }
