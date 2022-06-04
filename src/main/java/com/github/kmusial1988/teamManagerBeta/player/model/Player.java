@@ -3,6 +3,7 @@ package com.github.kmusial1988.teamManagerBeta.player.model;
 import com.github.kmusial1988.teamManagerBeta.global.globalEnum.RoleEnum;
 import com.github.kmusial1988.teamManagerBeta.global.globalEnum.Status;
 import com.github.kmusial1988.teamManagerBeta.parent.model.Parent;
+import com.github.kmusial1988.teamManagerBeta.team.model.Team;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,9 +32,12 @@ public class Player {
     private String joined;
     private Status status;
     private RoleEnum role;
-
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "parent_id")
+    private String teamName;
+    @ManyToOne
     private Parent parent;
+
+
+
+
 
 }

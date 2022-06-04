@@ -32,6 +32,8 @@ public class PlayerArchives {
     private String joined;
     private Status status;
     private RoleEnum role;
+    private String parentLogin;
+    private String teamName;
 
 
 }

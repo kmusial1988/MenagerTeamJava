@@ -14,20 +14,23 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class PlayerRequest {
     private Long id;
-    @NotBlank(message = "Trainer name cannot be blank!")
-    @Size(min = 2, max = 20, message = "Organization name has to be between 2 and 20 characters!")
+    @NotBlank(message = "Player name cannot be blank!")
+    @Size(min = 2, max = 20, message = "Player name has to be between 2 and 20 characters!")
     private String name;
-    @NotBlank(message = "Trainer surname cannot be blank!")
-    @Size(min = 2, max = 20, message = "Trainer surname has to be between 2 and 20 characters!")
+    @NotBlank(message = "Player surname cannot be blank!")
+    @Size(min = 2, max = 20, message = "Player surname has to be between 2 and 20 characters!")
     private String surname;
-    @NotBlank(message = "Trainer login cannot be blank!")
-    @Size(min = 2, max = 20, message = "Trainer login has to be between 2 and 20 characters!")
+    @NotBlank(message = "Player login cannot be blank!")
+    @Size(min = 2, max = 20, message = "Player login has to be between 2 and 20 characters!")
     private String login;
-    @NotBlank(message = "Trainer password cannot be blank!")
-    @Size(min = 2, max = 20, message = "Trainer password has to be between 2 and 20 characters!")
+    @NotBlank(message = "Player password cannot be blank!")
+    @Size(min = 2, max = 20, message = "Player password has to be between 2 and 20 characters!")
     private String password;
     private String imageUrl;
     private String joined;
     private Status status;
     private RoleEnum role;
+    private String parentLogin;
+    private String teamName;
+
 }

@@ -1,5 +1,6 @@
 package com.github.kmusial1988.teamManagerBeta.team.rest;
 
+import com.github.kmusial1988.teamManagerBeta.team.model.Team;
 import com.github.kmusial1988.teamManagerBeta.team.model.TeamArchive;
 import com.github.kmusial1988.teamManagerBeta.team.model.TeamRequest;
 import com.github.kmusial1988.teamManagerBeta.team.model.TeamResponse;
@@ -23,17 +24,17 @@ public class TeamController {
 
 
     @GetMapping()
-    public ResponseEntity<List<TeamResponse>> getTeam(){
+    public ResponseEntity<List<Team>> getTeam(){
         return ResponseEntity.status(HttpStatus.OK).body(teamService.listTeam());
     }
 
     @PostMapping()
-    public ResponseEntity<TeamResponse> saveTeam(@RequestBody @Valid TeamRequest teamRequest){
+    public ResponseEntity<Team> saveTeam(@RequestBody @Valid TeamRequest teamRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(teamService.createTeam(teamRequest));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TeamResponse> getTeam(@PathVariable("id") Long id){
+    public ResponseEntity<Team> getTeam(@PathVariable("id") Long id){
         return ResponseEntity.status(HttpStatus.OK).body(teamService.getTeamById(id));
     }
 
@@ -44,8 +45,13 @@ public class TeamController {
     }
 
     @PutMapping()
-    public ResponseEntity<TeamResponse> updateTeam(@RequestBody @Valid TeamRequest teamRequest){
+    public ResponseEntity<Team> updateTeam(@RequestBody @Valid TeamRequest teamRequest){
         return ResponseEntity.status(HttpStatus.OK).body(teamService.updateTeam(teamRequest));
+    }
+
+    @PutMapping("/addToTeam")
+    public ResponseEntity<Team> addToTeam(@RequestBody @Valid TeamRequest teamRequest){
+        return ResponseEntity.status(HttpStatus.OK).body(teamService.addToTeam(teamRequest));
     }
 
     @GetMapping("/archive")

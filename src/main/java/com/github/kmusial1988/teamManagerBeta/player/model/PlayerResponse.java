@@ -20,6 +20,8 @@ public class PlayerResponse {
     private String joined;
     private Status status;
     private RoleEnum role;
+    private String parentLogin;
+    private String teamName;
 
 
 }

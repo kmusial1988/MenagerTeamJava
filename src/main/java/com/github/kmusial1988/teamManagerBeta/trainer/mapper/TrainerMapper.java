@@ -14,14 +14,16 @@ public class TrainerMapper {
 
     public Trainer mapFromRequestToEntity(final TrainerRequest request){
         final Trainer trainer = new Trainer();
+        trainer.setId(request.getId());
         trainer.setName(request.getName());
         trainer.setSurname(request.getSurname());
         trainer.setLogin(request.getLogin());
         trainer.setPassword(request.getPassword());
         trainer.setImageUrl(request.getImageUrl());
         trainer.setJoined(request.getJoined());
-        trainer.setStatus(Status.NO);
-        trainer.setRole(RoleEnum.TRAINER);
+        trainer.setStatus(request.getStatus());
+        trainer.setRole(request.getRole());
+        trainer.setTeamName(request.getTeamName());
 
         return trainer;
     }
@@ -37,6 +39,7 @@ public class TrainerMapper {
         response.setJoined(trainer.getJoined());
         response.setStatus(trainer.getStatus());
         response.setRole(trainer.getRole());
+        response.setTeamName(trainer.getTeamName());
 
         return response;
     }
@@ -52,6 +55,7 @@ public class TrainerMapper {
         archives.setJoined(trainer.getJoined());
         archives.setStatus(trainer.getStatus());
         archives.setRole(trainer.getRole());
+        archives.setTeamName(trainer.getTeamName());
 
 
         return archives;

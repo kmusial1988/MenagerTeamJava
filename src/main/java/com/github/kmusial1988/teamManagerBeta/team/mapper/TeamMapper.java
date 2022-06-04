@@ -1,14 +1,11 @@
 package com.github.kmusial1988.teamManagerBeta.team.mapper;
-import com.github.kmusial1988.teamManagerBeta.global.globalEnum.RoleEnum;
-import com.github.kmusial1988.teamManagerBeta.global.globalEnum.Status;
-import com.github.kmusial1988.teamManagerBeta.player.model.Player;
-import com.github.kmusial1988.teamManagerBeta.player.model.PlayerArchives;
-import com.github.kmusial1988.teamManagerBeta.player.model.PlayerRequest;
-import com.github.kmusial1988.teamManagerBeta.player.model.PlayerResponse;
+
+import com.github.kmusial1988.teamManagerBeta.player.repository.PlayerRepository;
 import com.github.kmusial1988.teamManagerBeta.team.model.Team;
 import com.github.kmusial1988.teamManagerBeta.team.model.TeamArchive;
 import com.github.kmusial1988.teamManagerBeta.team.model.TeamRequest;
 import com.github.kmusial1988.teamManagerBeta.team.model.TeamResponse;
+import com.github.kmusial1988.teamManagerBeta.trainer.repository.TrainerRepository;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -16,13 +13,23 @@ import java.time.LocalDateTime;
 @Component
 public class TeamMapper {
 
+    private final PlayerRepository playerRepository;
+    private final TrainerRepository trainerRepository;
+
+    public TeamMapper(PlayerRepository playerRepository, TrainerRepository trainerRepository) {
+        this.playerRepository = playerRepository;
+        this.trainerRepository = trainerRepository;
+    }
+
     public Team mapFromRequestToEntity(final TeamRequest request){
         final Team team = new Team();
+        team.setId(request.getId());
         team.setName(request.getName());
         team.setCode(request.getCode());
+        team.setEmail(request.getEmail());
         team.setImageUrl(request.getImageUrl());
         team.setJoined(request.getJoined());
-        team.setStatus(Status.NO);
+        team.setStatus(request.getStatus());
 
         return team;
     }
@@ -32,9 +39,12 @@ public class TeamMapper {
         response.setId(team.getId());
         response.setName(team.getName());
         response.setCode(team.getCode());
+        response.setEmail(team.getEmail());
         response.setImageUrl(team.getImageUrl());
         response.setJoined(team.getJoined());
         response.setStatus(team.getStatus());
+        response.setCountPlayer( playerRepository.findAllByTeamName(team.getName()).size());
+        response.setCountTrainer( trainerRepository.findAllByTeamName(team.getName()).size());
 
         return response;
     }
@@ -44,11 +54,14 @@ public class TeamMapper {
         archives.setId(team.getId());
         archives.setName(team.getName());
         archives.setCode(team.getCode());
+        archives.setEmail(team.getEmail());
         archives.setTeamArchiveData(LocalDateTime.now());
         archives.setImageUrl(team.getImageUrl());
         archives.setJoined(team.getJoined());
 
         return archives;
     }
+
+
 
 }

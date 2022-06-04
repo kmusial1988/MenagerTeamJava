@@ -30,4 +30,5 @@ public class TrainerRequest {
     private String joined;
     private Status status;
     private RoleEnum role;
+    private String teamName;
 }

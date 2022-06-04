@@ -12,7 +12,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -37,6 +36,10 @@ public class Parent {
     private Status status;
     private RoleEnum role;
 
-//    @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE)
-//    private List<Player> playerList = new ArrayList<>();
+    @OneToMany
+    private List<Player> playerList =new ArrayList<>();
+
+
+
+
 }

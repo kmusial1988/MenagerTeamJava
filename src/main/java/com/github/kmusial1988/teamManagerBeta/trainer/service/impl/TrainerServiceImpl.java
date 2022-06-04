@@ -65,14 +65,20 @@ public class TrainerServiceImpl implements TrainerService {
 
     @Override
     public TrainerResponse updateTrainer(TrainerRequest trainerRequest) {
-        Trainer trainer = trainerRepository.findById(trainerRequest.getId()).orElseThrow(()->{
+
+
+        trainerRepository.findById(trainerRequest.getId()).orElseThrow(()->{
             throw new TrainerNotFoundException();
         });
-        trainerRepository.findByLogin(trainerRequest.getLogin()).ifPresent(tr -> {
+
+        trainerRepository.findByIdNotAndLogin(trainerRequest.getId(), trainerRequest.getLogin()).ifPresent(tr -> {
             throw new TrainerIsAlreadyExistsException(trainerRequest.getLogin());
         });
 
+        Trainer trainer = trainerMapper.mapFromRequestToEntity(trainerRequest);
+
         log.info("Updating trainer: {}", trainer.getLogin());
+
         return trainerMapper.mapFromEntityToResponse(trainerRepository.save(trainer));
     }
 
